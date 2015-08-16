@@ -30,16 +30,13 @@
   },
   "dependencies": {
     "bluebird": "^2.9.34",
-    "gulp": "^3.6.2",
-    "gulp-conflict": "^0.1.1",
-    "gulp-install": "^0.1.4",
-    "gulp-rename": "^1.2.0",
-    "gulp-template": "^0.1.1",
+    "gulp": "^3.9.0",
+    "gulp-conflict": "^0.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-template": "^3.0.0",
     "iniparser": "^1.0.5",
-    "inquirer": "^0.8.0",
-    "proxyquire": "^1.6.0",
-    "slush": ">=1.0.0",
-    "underscore.string": "^2.3.3"
+    "inquirer": "^0.9.0",
+    "slush": ">=1.0.0"
   },
   "keywords": [
     "slushgenerator"
@@ -49,6 +46,7 @@
     "gulp-istanbul": "^0.10.0",
     "gulp-jsbeautifier": "^1.0.1",
     "gulp-mocha": "^2.1.3",
+    "proxyquire": "^1.6.0",
     "sinon": "^1.15.4"
   }
 }
