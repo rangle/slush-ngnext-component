@@ -14,7 +14,8 @@ module.exports = function () {
     validateInput: validateInput,
     replaceWithAnswers: replaceWithAnswers,
     prompt: prompt,
-    generate: generate
+    generate: generate,
+    format: format
   }
 
   function validateInput(input) {
@@ -31,7 +32,11 @@ module.exports = function () {
     return function (file) {
       //If all files generated are to be renamed
       //then this if statement will be removed
-      if (file.basename === 'component') {
+      if (file.basename === 'component' && file.extname === '.ts') {
+        file.basename = file.basename.replace(/component/, component.name);
+      } else if (file.basename === 'component' && file.extname === '.html') {
+        file.basename = file.basename.replace(/component/, format(component.name, 1));
+      } else {
         file.basename = file.basename.replace(/component/, component.name);
       }
       return file;
@@ -44,7 +49,8 @@ module.exports = function () {
       var prompts = [{
         name: 'name',
         message: 'What is the name of your component?',
-        validate: validateInput
+        validate: validateInput,
+        default: 'HelloComponent'
       }];
       return inquirer.prompt(prompts, resolve);
     });
@@ -52,6 +58,11 @@ module.exports = function () {
 
   function generate(done) {
     return function (component) {
+
+      component.componentName = component.name;
+      component.componentNameSelector = format(component.name, 0);
+      component.componentNameTemplate = format(component.name, 1);
+
       gulp.src(__dirname + '/templates/**')
         .pipe(template(component))
         .pipe(rename(replaceWithAnswers(component)))
@@ -62,3 +73,16 @@ module.exports = function () {
   }
 
 }();
+
+
+function format(str, type) {
+  // type = 0 => to camel case
+  // type = 1 =? to hypehn string
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
+    var output = index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+    if (type) {
+      output = index == 0 ? letter.toLowerCase() : '-' + letter.toLowerCase();
+    }
+    return output;
+  }).replace(/\s+/g, '');
+}

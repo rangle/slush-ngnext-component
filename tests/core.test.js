@@ -92,5 +92,14 @@ describe('Core', function () {
     expect(renameMock.calledOnce).to.eql(true);
   })
 
+  it('should format string to camel case', function () {
+    var name = 'HelloComponentOne';
+    expect(core.format(name, 0)).to.be.equal('helloComponentOne');
+  })
+
+  it('should format string to hyphen case', function () {
+    var name = 'HelloComponentOne';
+    expect(core.format(name, 1)).to.be.equal('hello-component-one');
+  })
 
 });
