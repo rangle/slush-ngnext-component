@@ -1,4 +1,5 @@
-# Slush ng-next-component
+# Slush ng-next-component [![Circle CI](https://circleci.com/gh/rangle/slush-ngnext-component.svg?style=svg)](https://circleci.com/gh/rangle/slush-ngnext-component)
+===============
 
 > slush generator for Rangle.io's ng-next style Angular component
 
