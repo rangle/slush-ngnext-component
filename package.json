@@ -26,7 +26,7 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": "echo \"No tests\""
+    "test": "gulp ci-test"
   },
   "dependencies": {
     "bluebird": "^2.9.34",
