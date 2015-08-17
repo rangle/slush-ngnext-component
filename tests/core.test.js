@@ -49,24 +49,39 @@ describe('Core', function () {
 
   it('should return files with component name', function () {
     var component = {
-      name:'test-component'
+      name:'HelloComponent'
     };
 
     var file = {
-      basename: 'component'
+      basename: 'component',
+      extname: '.ts'
     };
 
     var file2 = {
-      basename: 'index'
+      basename: 'component',
+      extname: '.html'
+    }
+
+    var file3 = {
+      basename: 'component',
+      extname: '.js'
     }
 
     var makeComponentFile = core.replaceWithAnswers(component);
+
     expect(makeComponentFile(file)).to.eql({
-      'basename': 'test-component'
+      basename: 'HelloComponent',
+      extname: '.ts'
     });
 
     expect(makeComponentFile(file2)).to.eql({
-      basename: 'index'
+      basename: 'hello-component',
+      extname: '.html'
+    })
+
+    expect(makeComponentFile(file3)).to.eql({
+      basename: 'HelloComponent',
+      extname: '.js'
     })
   });
 
