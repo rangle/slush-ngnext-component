@@ -7,7 +7,7 @@ var istanbul = require('gulp-istanbul');
 
 
 gulp.task('test', function (cb) {
-  gulp.src('core.js')
+  gulp.src('src/*.js')
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
     .on('finish', function () {
@@ -22,7 +22,7 @@ gulp.task('test', function (cb) {
 });
 
 gulp.task('ci-test', function (cb) {
-  gulp.src('core.js')
+  gulp.src('src/*.js')
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
     .on('finish', function () {
@@ -41,13 +41,13 @@ gulp.task('ci-test', function (cb) {
 });
 
 gulp.task('test:auto', function () {
-  gulp.watch(['tests/**/*.test.js', 'core.js', ], ['test']);
+  gulp.watch(['tests/**/*.test.js', 'src/*.js', ], ['test']);
 });
 
 gulp.task('beautify', function () {
   gulp.src('*.js', {
-      base: '.'
-    })
+    base: '.'
+  })
     .pipe(prettify({
       config: '.jsbeautifyrc',
       mode: 'VERIFY_AND_WRITE'

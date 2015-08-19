@@ -1,13 +1,12 @@
 'use strict';
 
-var gulp = require('gulp'),
-  install = require('gulp-install'),
-  conflict = require('gulp-conflict'),
-  template = require('gulp-template'),
-  rename = require('gulp-rename'),
-  _ = require('underscore.string'),
-  inquirer = require('inquirer'),
-  path = require('path');
+var gulp = require('gulp');
+var install = require('gulp-install');
+var conflict = require('gulp-conflict');
+var template = require('gulp-template');
+var rename = require('gulp-rename');
+var inquirer = require('inquirer');
+var path = require('path');
 
 var prompts = require('./src/prompts');
 var utils = require('./src/utils');

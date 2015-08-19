@@ -10,4 +10,13 @@ function format(str, type) {
   }).replace(/\s+/g, '');
 }
 
+
+function validateInput(input) {
+  var errorMessage = 'Input contains invalid characters! Please try again';
+  if (input.split(' ').length > 1) {
+    return errorMessage;
+  }
+  return true;
+}
 module.exports.format = format;
+module.exports.validateInput = validateInput;

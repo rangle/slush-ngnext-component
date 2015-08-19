@@ -1,10 +1,10 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var proxyquire =  require('proxyquire');
+var proxyquire = require('proxyquire');
 var Promise = require('bluebird');
 
 var inquirerMock = {
-  prompt: sinon.spy(function(prompts, cb) {
+  prompt: sinon.spy(function (prompts, cb) {
     cb({
       'name': 'my-test-component'
     });
@@ -12,16 +12,16 @@ var inquirerMock = {
 }
 
 var gulpMock = {
-  src: sinon.spy(function() {
+  src: sinon.spy(function () {
     return this;
   }),
-  pipe: sinon.spy(function() {
+  pipe: sinon.spy(function () {
     return this;
   }),
   dest: sinon.spy(function () {
 
   }),
-  on: sinon.spy(function() {
+  on: sinon.spy(function () {
 
   })
 }
@@ -30,7 +30,7 @@ var templateMock = sinon.spy();
 var renameMock = sinon.spy();
 var conflictMock = sinon.spy();
 
-var core = proxyquire('../core', {
+var core = proxyquire('../slushfile', {
   inquirer: inquirerMock,
   gulp: gulpMock,
   'gulp-rename': renameMock,
@@ -49,7 +49,7 @@ describe('Core', function () {
 
   it('should return files with component name', function () {
     var component = {
-      name:'HelloComponent'
+      name: 'HelloComponent'
     };
 
     var file = {
@@ -86,10 +86,9 @@ describe('Core', function () {
   });
 
   it('should prompt', function () {
-    core.prompt().then(function(res) {
-       expect(inquirerMock.prompt.calledOnce).to.eql(true);
+    core.prompt().then(function (res) {
+      expect(inquirerMock.prompt.calledOnce).to.eql(true);
     })
-
   });
 
   it('should generate using the right tools', function () {
