@@ -54,5 +54,3 @@ gulp.task('beautify', function () {
     }))
     .pipe(gulp.dest('.'));
 });
-
-gulp.task('serve', slushTask);
