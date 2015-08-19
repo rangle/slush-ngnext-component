@@ -13,56 +13,43 @@ var prompts = require('./src/prompts');
 var utils = require('./src/utils');
 var tasks = require('./src/tasks');
 
-var defaults = (function () {
-  var workingDirName = path.basename(process.cwd()),
-    homeDir, osUserName, configFile, user;
-
-  if (process.platform === 'win32') {
-    homeDir = process.env.USERPROFILE;
-    osUserName = process.env.USERNAME || path.basename(homeDir).toLowerCase();
-  } else {
-    homeDir = process.env.HOME || process.env.HOMEPATH;
-    osUserName = homeDir && homeDir.split('/').pop() || 'root';
+function replaceWithAnswers(component) {
+  return function (file) {
+    //If all files generated are to be renamed
+    //then this if statement will be removed
+    if (file.basename === 'template' && file.extname === '.ts') {
+      file.basename = file.basename.replace(/template/, component.name);
+    } else if (file.basename === 'template' && file.extname === '.html') {
+      file.basename = file.basename.replace(/template/, utils.format(component.name, 1));
+    }
+    return file;
   }
-
-  configFile = path.join(homeDir, '.gitconfig');
-  user = {};
-
-  if (require('fs').existsSync(configFile)) {
-    user = require('iniparser').parseSync(configFile).user;
-  }
-
-  return {
-    moduleName: workingDirName,
-    componentName: 'HelloComponent'
-  };
-})();
+}
 
 function task(done) {
 
+  if (gulp.args.length === 0) {
+    throw 'You need to pass component type';
+  } else if (gulp.args.length > 1) {
+    throw 'You can only pass one component name';
+  }
+
   var prompt = prompts[gulp.args[0]];
   var path = '/templates/ng-course/' + gulp.args[0] + '/**';
-  console.log(path);
 
   inquirer.prompt(prompt,
     function (answers) {
       if (!answers.moveon) {
         return done();
       }
-      answers.componentSelector = utils.format(answers.componentName, 0);
-      answers.componentNameSelector = utils.format(answers.componentName, 0);
-      answers.componentNameTemplate = utils.format(answers.componentName, 0);
-      answers.serviceName = utils.format(answers.componentName, 0);
-      answers.constName = utils.format(answers.componentName, 0);
-      answers.module = _.slugify(answers.moduleName);
+
+      answers.name = answers.componentName || answers.serviceName || answers.constantName
+      answers.componentNameSelector = utils.format(answers.name, 0);
+      answers.componentNameTemplate = utils.format(answers.name, 1);
 
       gulp.src(__dirname + path)
         .pipe(template(answers))
-        .pipe(rename(function (file) {
-          if (file.basename[0] === '_') {
-            file.basename = '.' + file.basename.slice(1);
-          }
-        }))
+        .pipe(rename(replaceWithAnswers(answers)))
         .pipe(conflict('./'))
         .pipe(gulp.dest('./'))
         .pipe(install())
@@ -77,5 +64,3 @@ function task(done) {
     gulp.task(t.name, task);
   })
 })();
-
-gulp.task('default', task);

@@ -18,7 +18,7 @@ var questionModule = {
   default: 'MainModule'
 };
 
-var questionConstant = {
+var questionConstants = {
   name: 'constantName',
   message: 'What is the name of Constants file ?',
   default: 'AppConstants'
@@ -33,6 +33,6 @@ var questionConfirm = {
 prompts.module = [questionModule, questiomComponent, questionConfirm];
 prompts.component = [questiomComponent, questionConfirm];
 prompts.service = [questiomService, questionConfirm];
-prompts.constant = [questionConstant, questionConfirm];
+prompts.constants = [questionConstants, questionConfirm];
 
 module.exports = prompts;

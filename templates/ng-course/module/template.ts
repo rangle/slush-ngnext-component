@@ -1,7 +1,7 @@
 import <%= componentName %> from './component';
 
 // declaring the module
-angular.module('<%= module %>', [])
+angular.module('<%= moduleName %>', [])
   .directive(
     makeSelector(<%= componentName %>),
     makeDirective(<%= componentName %>));
