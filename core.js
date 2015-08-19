@@ -23,25 +23,22 @@ module.exports = function () {
     if (input.split(' ').length > 1) {
       return errorMessage;
     }
-
     return true;
-
   }
 
   function replaceWithAnswers(component) {
     return function (file) {
       //If all files generated are to be renamed
       //then this if statement will be removed
-      if (file.basename === 'component' && file.extname === '.ts') {
-        file.basename = file.basename.replace(/component/, component.name);
-      } else if (file.basename === 'component' && file.extname === '.html') {
-        file.basename = file.basename.replace(/component/, format(component.name, 1));
-      } else {
-        file.basename = file.basename.replace(/component/, component.name);
+      if (file.basename === 'template' && file.extname === '.ts') {
+        file.basename = file.basename.replace(/template/, component.name);
+      } else if (file.basename === 'template' && file.extname === '.html') {
+        file.basename = file.basename.replace(/template/, format(component.name, 1));
+      } else if (file.basename === 'component') {
+        // file.basename = file.basename.replace(/component/, component.name);
       }
       return file;
     }
-
   }
 
   function prompt() {
@@ -51,6 +48,11 @@ module.exports = function () {
         message: 'What is the name of your component?',
         validate: validateInput,
         default: 'HelloComponent'
+      }, {
+        name: 'module',
+        message: 'What is the name of your module?',
+        validate: validateInput,
+        default: 'NewModule'
       }];
       return inquirer.prompt(prompts, resolve);
     });
@@ -60,6 +62,8 @@ module.exports = function () {
     return function (component) {
 
       component.componentName = component.name;
+      component.serviceName = component.name;
+      component.constName = component.name;
       component.componentNameSelector = format(component.name, 0);
       component.componentNameTemplate = format(component.name, 1);
 
