@@ -1,5 +1,5 @@
 var tasks = [{
-  name: 'ng-course'
+  name: 'default'
 }];
 
 module.exports = tasks;

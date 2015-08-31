@@ -13,13 +13,15 @@ var utils = require('./src/utils');
 var tasks = require('./src/tasks');
 
 function replaceWithAnswers(component) {
-  return function (file) {
+  return function(file) {
     //If all files generated are to be renamed
     //then this if statement will be removed
-    if (file.basename === 'template' && file.extname === '.ts') {
+    if ((file.basename === 'template' || file.basename === 'template.test') &&
+      file.extname === '.ts') {
       file.basename = file.basename.replace(/template/, component.name);
     } else if (file.basename === 'template' && file.extname === '.html') {
-      file.basename = file.basename.replace(/template/, utils.format(component.name, 1));
+      file.basename = file.basename.replace(/template/, utils.format(
+        component.name, 1));
     }
     return file;
   }
@@ -37,7 +39,7 @@ function task(done) {
   var path = '/templates/ng-course/' + gulp.args[0] + '/**';
 
   inquirer.prompt(prompt,
-    function (answers) {
+    function(answers) {
       if (!answers.moveon) {
         return done();
       }
@@ -52,14 +54,14 @@ function task(done) {
         .pipe(conflict('./'))
         .pipe(gulp.dest('./'))
         .pipe(install())
-        .on('end', function () {
+        .on('end', function() {
           done();
         });
     });
 }
 
-(function () {
-  tasks.forEach(function (t) {
+(function() {
+  tasks.forEach(function(t) {
     gulp.task(t.name, task);
   })
 })();
