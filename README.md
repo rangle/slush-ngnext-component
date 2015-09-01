@@ -1,25 +1,25 @@
 # Slush ng-next-component [![Circle CI](https://circleci.com/gh/rangle/slush-ngnext-component.svg?style=svg)](https://circleci.com/gh/rangle/slush-ngnext-component)
-===============
-
-> slush generator for Rangle.io's ng-next style Angular component
+slush generator for Rangle.io's ng-next style Angular component
 
 
 ## Getting Started
-Coming Soon!
+* git clone https://github.com/rangle/slush-ngnext-component.git
+* cd slush-ngnext-component
+* npm install
+* mkdir test
+* cd test
+* npm link ../
+* Now you can run the commands
 
-### Usage
+## Usage
 
-Create a new folder for your project:
+Want to generate  | Command
+----------------- | -------------
+module            | slush ng-next-component module
+component         | slush ng-next-component component
+constants         | slush ng-next-component constants
+service           | slush ng-next-component service
 
-```bash
-$ mkdir my-slush-ng-next-component
-```
-
-Run the generator from within the new folder:
-
-```bash
-$ cd my-slush-ng-next-component && slush ng-next-component
-```
 
 ## Getting To Know Slush
 
