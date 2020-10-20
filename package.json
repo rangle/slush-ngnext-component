@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.34",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.0",
     "gulp-conflict": "^0.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-template": "^3.0.0",
